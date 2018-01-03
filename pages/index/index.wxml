@@ -1,0 +1,47 @@
+<scroll-view scroll-x="true"  scroll-left="{{scrollLeft}}">
+  <view class="navbar">
+  <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text> 
+  </view> 
+</scroll-view>  
+  <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab"
+     style="height:{{scrollHeight}}px">
+   <swiper-item wx:for="{{[0,1,2]}}">
+
+<scroll-view scroll-y="true" style="height:{{scrollHeight}}px"
+  bindscrolltolower="scrollLowerEvent">
+
+
+    <view class="logo" wx:if="{{isInit}}">
+      <view><text>豆瓣电影</text></view>
+      <text style="font-size:30rpx;">Designed by Oopsguy</text>
+    </view>
+
+    <view class="header" wx:if="{{totalRecord > 0 && !isInit}}">
+      <text>电影 {{totalRecord}}部电影</text>
+    </view>
+
+    <view class="common-list" wx:if="{{totalRecord > 0}}">
+
+      <block wx:for="{{pageData}}">
+        <view class="list-item" data-bid="{{item.id}}" bindtap="toDetailPage">
+          <view class="index-list-item">
+            <view class="cover">
+              <image class="cover-img" src="{{item.images.small}}"></image>
+            </view>
+            <view class="content">
+              <view class="title">{{item.title}}</view>
+              <text class="desc">{{item.rating.average == '0.0' ? '无' : item.rating.average}}/<block wx:for="{{item.directors}}" wx:for-item="it" wx:key="*this">{{it.name}}/</block>{{item.year}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+
+    </view>
+
+    <view class="refresh-footer" wx:if="{{loadingMore}}">
+      <icon type="waiting" size="30" color="{{footerIconColor}}"  />
+    </view>
+ 
+</scroll-view>
+ </swiper-item>
+ </swiper>

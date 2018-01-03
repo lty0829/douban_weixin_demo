@@ -1,0 +1,44 @@
+<view class="search-container">
+  <input type="text" bindinput="searchInputEvent" placeholder="输入电影名搜索"></input><icon bindtap="searchClickEvent"  type="search" size="20"/>
+</view>
+
+<scroll-view scroll-y="true" style="height:{{scrollHeight}}px"
+  bindscrolltolower="scrollLowerEvent">
+
+    <view class="logo" wx:if="{{!loadingMore && totalRecord == 0 && !isInit}}">
+      <icon type="cancel" color="#B0AAAA" size="50" />
+      <view><text>没有找到相关电影</text></view>
+    </view>
+
+    <view class="logo" wx:if="{{isInit}}">
+      <view><text>豆瓣电影</text></view>
+    </view>
+
+    <view class="header" wx:if="{{totalRecord > 0 && !isInit}}">
+      <text>电影 {{totalRecord}}部电影</text>
+    </view>
+
+    <view class="common-list" wx:if="{{totalRecord > 0}}">
+
+      <block wx:for="{{pageData}}">
+        <view class="list-item" data-bid="{{item.id}}" bindtap="toDetailPage">
+          <view class="index-list-item">
+            <view class="cover">
+              <image class="cover-img" src="{{item.images.small}}"></image>
+            </view>
+            <view class="content">
+              <view class="title">{{item.title}}</view>
+              <text class="desc">{{item.rating.average == '0.0' ? '无' : item.rating.average}}/<block wx:for="{{item.directors}}" wx:for-item="it" wx:key="*this">{{it.name}}/</block>{{item.year}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+
+    </view>
+
+    <view class="refresh-footer" wx:if="{{loadingMore}}">
+      <icon type="waiting" size="30" color="{{footerIconColor}}"  />
+    </view>
+
+</scroll-view>
+

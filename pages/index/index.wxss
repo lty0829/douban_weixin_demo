@@ -1,0 +1,47 @@
+page {
+  background: #F2F1EE;
+}
+
+.logo {
+  text-align:center;
+  padding-top:300rpx;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #AAA
+}
+
+
+
+/*header*/
+.header {
+  padding: 20rpx 30rpx;
+}
+.header text {
+  color: #A6A6A6;
+  font-size: 35rpx
+}
+
+.navbar{  
+  flex: none;  
+  display: flex;  
+  background: #fff;  
+}  
+.navbar .item{  
+  position: relative;  
+  flex: auto;  
+  text-align: center;  
+  line-height: 80rpx;  
+}  
+.navbar .item.active{  
+  color: #71C671;  
+}  
+.navbar .item.active:after{  
+  content: "";  
+  display: block;  
+  position: absolute;  
+  bottom: 0;  
+  left: 0;  
+  right: 0;  
+  height: 4rpx;  
+  background: #71C671;  
+}  

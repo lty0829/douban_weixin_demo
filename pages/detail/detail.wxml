@@ -1,0 +1,77 @@
+<scroll-view  scroll-y="true" style="height:{{totalHeight}}px;" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" wx:if="{{movieData}}">
+    <view id="top" class="cover-container">
+        <image src="{{movieData.images.large}}"></image>
+    </view>
+
+    <view class="movie-meta">
+        <view class="meta-info">
+            <text class="movie-title">{{movieData.title}}</text>
+            <text class="other-meta">导演：<block wx:for="{{movieData.directors}}" wx:for-item="it" wx:key="*this">{{it.name}} </block></text>
+            <text class="other-meta">演员：<block wx:for="{{movieData.casts}}" wx:for-item="it" wx:key="*this">{{it.name}} </block></text>
+            <text class="other-meta">类型：<block wx:for="{{movieData.genres}}" wx:for-item="it" wx:key="*this">{{it}} </block></text>
+        </view>
+        <view class="range">
+            <text class="score">{{movieData.rating.average}}</text>
+            <text class="viewers">{{movieData.ratings_count ? movieData.ratings_count : 0}}参与</text>
+             <image class="collect" src="{{imgUrl}}" bindtap="getCollect"></image>
+        </view>
+      
+    </view>
+
+    <view class="movie-intro" wx:if="{{movieData.summary}}">
+        <view class="intro-header"><text>简介</text></view>
+        <text class="intro-content">{{movieData.summary}}</text>
+    </view>
+    <view class="movie-button" >
+        <button disabled ="true" style="flex:1"  bindtap="hideShort" wx:if="{{isShort}}">隐藏短评</button>
+        <button disabled ="true" style="flex:1" bindtap="showShort" wx:else>显示短评</button>
+         <button style="flex:1"  bindtap="hidePerson" wx:if="{{isPerson}}">隐藏影人</button>
+        <button style="flex:1" bindtap="showPerson" wx:else>显示影人</button>
+    </view>
+    <view   id="com" style="height:{{scrollHeight}}px"  bindscrolltolower="scrollLowerEvent" wx:if="{{isShort}}">
+      <view>wode</view>
+    </view>
+    <view   id="com" style="height:{{scrollHeight}}px"  bindscrolltolower="scrollLowerEvent" wx:if="{{isPerson&&(movieData.casts.length>0||movieData.directors.length>0)}}">
+    <block wx:for="{{movieData.directors}}">
+        <view class="list-item" data-bidx="{{item.id}}" bindtap="toPersonPage">
+          <view class="index-list-item">
+            <view class="cover">
+              <image class="cover-img" src="{{item.avatars.small}}"></image>
+            </view>
+            <view class="content">
+              <view class="title">{{item.name}}</view>
+              <text class="desc">导演</text>
+            </view>
+          </view>
+        </view>
+      </block>
+
+
+
+       <block wx:for="{{movieData.casts}}">
+        <view class="list-item" data-bidx="{{item.id}}" bindtap="toPersonPage">
+          <view class="index-list-item">
+            <view class="cover">
+              <image class="cover-img" src="{{item.avatars.small}}"></image>
+            </view>
+            <view class="content">
+              <view class="title">{{item.name}}</view>
+              <text class="desc">演员</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>  
+    <view  class="refresh-footer" wx:if="{{loadingMore}}">
+      <icon type="waiting" size="30" color="{{footerIconColor}}"  />
+    </view>
+    <view></view>
+
+</scroll-view>
+
+  
+
+<loading hidden="{{loadidngHidden}}">
+    加载中...
+</loading>
+

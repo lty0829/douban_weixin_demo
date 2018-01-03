@@ -1,0 +1,10 @@
+page {
+  background: #F2F1EE;
+}
+.logo {
+  text-align:center;
+  padding-top:300rpx;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #AAA
+}

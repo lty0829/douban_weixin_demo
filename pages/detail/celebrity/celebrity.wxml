@@ -1,0 +1,64 @@
+<scroll-view  scroll-y="true" style="height:{{totalHeight}}px;" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" wx:if="{{personData}}">
+    <view id="top" class="cover-container">
+        <image src="{{personData.avatars.large}}"></image>
+    </view>
+
+    <view class="movie-meta">
+        <view class="meta-info">
+            <text class="movie-title">{{personData.name}}</text>
+            <text class="other-meta">性别：{{personData.gender}}</text>
+            <text class="other-meta">出生地：{{personData.born_place}}</text>
+        </view>
+        <view class="range">
+            <text class="viewers">{{personData.id}}粉丝</text>
+        </view>
+    </view>
+
+    <view class="movie-intro" wx:if="{{personData.summary}}">
+        <view class="intro-header"><text>简介</text></view>
+        <text class="intro-content">{{personData.summary}}</text>
+    </view>
+    <view class="movie-intro">
+        <view class="intro-header"><text>简介</text></view>
+        <text class="intro-content">田羽生编而优则导，用《人在囧途》给自己开了一个良好的头，是金子总会发光，《人在囧途》让他发光。以编与导于一身的崭新模式出现在《前任攻略》里时，他的个性风格渐已形成。不可否认田羽生的编剧天赋，比如他能把《人在囧途》深入浅出曲折离奇而又催人泪下，看完绝对不会一笑而过，而是触及到人性的软肋和真情，这部小成本电影，没有恢弘巨制气势不讲究排场，却被他简单刻画到很值得收藏的地步。如果说田羽生是第二个冯小刚，他的搞笑天分、不拘一格的诙谐以及对小人物的拿捏确实都有几分冯导的影子。</text>
+    </view>
+
+
+    <view class="movie-button" >
+        <button disabled ="true" style="flex:1"  bindtap="hideShort" wx:if="{{isShort}}">隐藏短评</button>
+        <button disabled ="true" style="flex:1" bindtap="showShort" wx:else>显示短评</button>
+         <button style="flex:1"  bindtap="hidePerson" wx:if="{{isPerson}}">隐藏作品</button>
+        <button style="flex:1" bindtap="showPerson" wx:else>显示作品</button>
+    </view>
+    <view   id="com" style="height:{{scrollHeight}}px"  bindscrolltolower="scrollLowerEvent" wx:if="{{isShort}}">
+      <view>wode</view>
+    </view>
+    <view   id="com" style="height:{{scrollHeight}}px"  bindscrolltolower="scrollLowerEvent" wx:if="{{isPerson&&personData.works.length>0}}">
+
+       <block wx:for="{{personData.works}}">
+        <view class="list-item" data-bid="{{item.subject.id}}" bindtap="toDetailPage">
+          <view class="index-list-item">
+            <view class="cover">
+              <image class="cover-img" src="{{item.subject.images.small}}"></image>
+            </view>
+            <view class="content">
+              <view class="title">{{item.subject.title}}</view>
+             <text class="desc">{{item.subject.rating.average == '0.0' ? '无' : item.subject.rating.average}}/<block wx:for="{{item.subject.directors}}" wx:for-item="it" wx:key="*this">{{it.name}}/</block>{{item.subject.year}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>  
+    <view  class="refresh-footer" wx:if="{{loadingMore}}">
+      <icon type="waiting" size="30" color="{{footerIconColor}}"  />
+    </view>
+    <view></view>
+
+</scroll-view>
+
+  
+
+<loading hidden="{{loadidngHidden}}">
+    加载中...
+</loading>
+
