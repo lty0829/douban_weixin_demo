@@ -58,4 +58,9 @@ Page({
     });
 
   },
+  onCom:function(event){
+    wx.navigateTo({
+      url: "../index/comment/comment"
+    });
+  },
 })

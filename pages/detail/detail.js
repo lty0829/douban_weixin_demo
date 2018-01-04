@@ -17,7 +17,9 @@ Page({
     footerIconColor: iconColor[0], //下拉刷新球初始颜色
     imgUrl:"../../imgs/AtiAi1.png",
     collId:[],
-    iscollect:false
+    iscollect:false,
+    comment: "",
+    commentKey:""
   },
   onLoad: function (option) {
     console.log(option)
@@ -46,7 +48,51 @@ Page({
         });
       }
     }
+    var comment = wx.getStorageSync("comment")
+    if(!comment){
+      wx.setStorageSync('comment', []);
+    }
+    else{
+        var i = comment.length;
+        while (i--) {
+          if (comment[i].id === this.data.id) {
+            this.setData({
+              comment:comment[i].src,
+            })
+          }
+        }
+    }
   },
+
+  searchInputEvent: function (e) {
+    this.setData({
+      commentKey: e.detail.value,
+    });
+
+  },
+
+  handleComfirm: function (event) {
+    if(this.data.commentKey.length!=0){
+      var id = this.data.id;
+      var comment = wx.getStorageSync("comment")
+      var iscom = true;
+      var i = comment.length;
+      while (i--) {
+        if (comment[i].id === id&&iscom) {
+            iscom = false;
+            comment[i].src = this.data.commentKey;
+            wx.setStorageSync('comment', comment);
+        }
+      }
+      if(iscom){
+        comment.push({"id":id,"src":this.data.commentKey});
+        wx.setStorageSync('comment', comment);
+      }
+      console.log(comment);
+    }
+  },
+
+
   getCollect:function(e){
     var value = wx.getStorageSync("collect")
     if(this.data.iscollect){

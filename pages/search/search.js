@@ -15,7 +15,19 @@ Page({
     loadingMore: false, //是否正在加载更多
     footerIconColor: iconColor[0], //下拉刷新球初始颜色
     pageData: [], //图书数据
-    searchKey: null //搜索关键字
+    searchKey: null, //搜索关键字
+    hotkey: [{ "k": "美丽人生", "n": "1292063" }, { "k": "三傻大闹宝莱坞", "n": "3793023" }, { "k": "乱世佳人", "n": "1300267" }, { "k": "至暗时刻", "n": "26761416" }, { "k": "乾坤福寿镜", "n": "27005363" },],
+    searchHotShow: true, 
+    specialkey:true
+  },
+
+
+  onHotSearch: function (ev) {
+    var info = ev.target.dataset.id;
+    console.log(info)
+    wx.navigateTo({
+      url: '../detail/detail?id=' + info
+    });
   },
 
   //页面显示获取设备屏幕高度，以适配scroll-view组件高度
@@ -32,7 +44,12 @@ Page({
 
   //搜索输入框输入取值
   searchInputEvent: function (e) {
-    this.setData({ searchKey: e.detail.value });
+    this.setData({ searchKey: e.detail.value,
+      searchHotShow:false });
+    console.log(e.detail.value)
+    if (e.detail.value.length==0){
+      this.setData({searchHotShow:true })
+    }
   },
 
   //搜索按钮点击事件
@@ -40,7 +57,7 @@ Page({
     if (!this.data.searchKey) {
       return;
     }
-    this.setData({ pageIndex: 0, pageData: [] });
+    this.setData({ pageIndex: 0, pageData: [], searchHotShow:false });
     requestData.call(this);
   },
 

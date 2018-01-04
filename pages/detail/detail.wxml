@@ -1,7 +1,26 @@
 <scroll-view  scroll-y="true" style="height:{{totalHeight}}px;" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" wx:if="{{movieData}}">
-    <view id="top" class="cover-container">
-        <image src="{{movieData.images.large}}"></image>
+  <view class="container" class="hidden {{visible?'visible':''}}">
+    <image class="head-img" src="{{movieData.images.small}}" mode="aspectFill" />
+    <view class="head-img-hover" data-src="{{movieData.images.small}}" catchtap="viewMoviePostImg">
+    <text class="main-title">{{movieData.title}}</text>
+    <text class="sub-title">{{movieData.countries[0] + " · "+movieData.year}}</text>
+    <view class="like">
+      <text class="highlight-font">
+        {{movieData.wish_count}}
+      </text>
+      <text class="plain-font">
+        人喜欢
+      </text>
+      <text class="highlight-font">
+        {{movieData.reviews_count}}
+      </text>
+      <text class="plain-font">
+        条评论
+      </text>
     </view>
+  </view>
+  <image class="movie-img" src="{{movieData.images.small}}" data-src="{{movieData.images.small}}" catchtap="viewMoviePostImg"/>
+  </view>
 
     <view class="movie-meta">
         <view class="meta-info">
@@ -23,13 +42,16 @@
         <text class="intro-content">{{movieData.summary}}</text>
     </view>
     <view class="movie-button" >
-        <button disabled ="true" style="flex:1"  bindtap="hideShort" wx:if="{{isShort}}">隐藏短评</button>
-        <button disabled ="true" style="flex:1" bindtap="showShort" wx:else>显示短评</button>
+        <button disabled ="{{!iscollect}}" style="flex:1"  bindtap="hideShort" wx:if="{{isShort}}">隐藏评价</button>
+        <button disabled ="{{!iscollect}}" style="flex:1" bindtap="showShort" wx:else>评价</button>
          <button style="flex:1"  bindtap="hidePerson" wx:if="{{isPerson}}">隐藏影人</button>
         <button style="flex:1" bindtap="showPerson" wx:else>显示影人</button>
     </view>
     <view   id="com" style="height:{{scrollHeight}}px"  bindscrolltolower="scrollLowerEvent" wx:if="{{isShort}}">
-      <view>wode</view>
+          <view class="session-textarea">
+      <textarea bindinput="searchInputEvent" class="rating-textarea" placeholder-class="rating-placeholder" placeholder="说说你看过之后的感受..." value="{{comment}}"/>
+    </view>
+    <button class="confirm" size="default" type="primary" bindtap="handleComfirm">确定</button>
     </view>
     <view   id="com" style="height:{{scrollHeight}}px"  bindscrolltolower="scrollLowerEvent" wx:if="{{isPerson&&(movieData.casts.length>0||movieData.directors.length>0)}}">
     <block wx:for="{{movieData.directors}}">

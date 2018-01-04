@@ -2,6 +2,7 @@
   "pages":[
     "pages/index/index",
     "pages/index/collect/collect",
+    "pages/index/comment/comment",
     "pages/logs/logs",
     "pages/search/search",
     "pages/detail/detail",
@@ -17,25 +18,25 @@
   "tabBar": {
     "backgroundColor":"#000",
     "position":"bottom",
-    "color":"#FFF",
-    "selectedColor":"#71C671",
+    "color":"#808080",
+    "selectedColor":"#fff",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "iconPath": "imgs/1.png",
-        "selectedIconPath":"imgs/2.png",
+        "iconPath": "imgs/clapperboard2.jpg",
+        "selectedIconPath":"imgs/clapperboard1.jpg",
         "text": "电影推荐"
       },
       {
         "pagePath": "pages/search/search",
-        "selectedIconPath": "imgs/2.png",
-        "iconPath": "imgs/1.png",
+        "selectedIconPath": "imgs/searchicon1.jpg",
+        "iconPath": "imgs/searchicon2.jpg",
         "text": "查询电影"
       },
       {
         "pagePath": "pages/my/my",
-        "selectedIconPath": "imgs/2.png",
-        "iconPath": "imgs/1.png",
+        "selectedIconPath": "imgs/mineicon1.jpg",
+        "iconPath": "imgs/mineicon2.jpg",
         "text": "我"
       }
     ]

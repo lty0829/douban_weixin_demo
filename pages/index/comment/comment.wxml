@@ -1,0 +1,22 @@
+ <scroll-view scroll-y="true" style="height:{{scrollHeight}}px"
+  bindscrolltolower="scrollLowerEvent">
+ <view  wx:if="{{comLen>0&&iscollect}}">
+
+       <block wx:for="{{collMovie}}">
+        <view class="list-item" data-bid="{{item.id}}" bindtap="toDetailPage">
+          <view class="index-list-item">
+            <view class="cover">
+              <image class="cover-img" src="{{item.images.small}}"></image>
+            </view>
+            <view class="content">
+              <view class="title">{{item.title}}</view>
+             <text class="desc">{{item.src}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>  
+    <view class="logo" wx:else>
+      <view><text>没有收藏</text></view>
+    </view>
+</scroll-view>

@@ -14,6 +14,12 @@
       <view class="bd">
        <view class="confirm-btn" bindtap="onTap">
             <text class="confirm-text">进入收藏夹</text>
+           
+        </view>
+
+        <view class="confirm-btn" bindtap="onCom">
+            <text class="confirm-text">查看评论</text>
+           
         </view>
       </view>
     </view>

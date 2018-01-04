@@ -5,6 +5,14 @@
 <scroll-view scroll-y="true" style="height:{{scrollHeight}}px"
   bindscrolltolower="scrollLowerEvent">
 
+    <view class="search-hot"wx:if="{{searchHotShow}}" >
+      <text class="hot-title">热门搜索</text>
+      <view class="hot-box">
+        
+         <text class="hot-item" wx:for="{{hotkey}}" wx:key="{{item.k}}" data-text="{{item.k}}" data-id="{{item.n}}" bindtap="onHotSearch" >{{item.k}}           </text>
+      </view>
+    </view>
+
     <view class="logo" wx:if="{{!loadingMore && totalRecord == 0 && !isInit}}">
       <icon type="cancel" color="#B0AAAA" size="50" />
       <view><text>没有找到相关电影</text></view>
