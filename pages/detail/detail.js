@@ -90,6 +90,12 @@ Page({
       }
       console.log(comment);
     }
+
+    wx.showToast({
+      title: '评论成功',
+      icon: 'success',
+      duration: 2000
+    })
   },
 
 
