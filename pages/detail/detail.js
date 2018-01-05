@@ -89,13 +89,21 @@ Page({
         wx.setStorageSync('comment', comment);
       }
       console.log(comment);
+      wx.showToast({
+        title: '评论成功',
+        icon: 'success',
+        duration: 2000
+      })
+    }
+    else{
+      wx.showToast({
+        title: '不能为空',
+        icon: 'fail',
+        duration: 2000
+      })
     }
 
-    wx.showToast({
-      title: '评论成功',
-      icon: 'success',
-      duration: 2000
-    })
+    
   },
 
 

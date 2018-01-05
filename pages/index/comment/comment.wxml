@@ -1,10 +1,27 @@
  <scroll-view scroll-y="true" style="height:{{scrollHeight}}px"
   bindscrolltolower="scrollLowerEvent">
  <view  wx:if="{{comLen>0&&iscollect}}">
+    <view class="button">
+      <view class="manage"  bindtap="onManage" wx:if="{{!ismanage}}">
+      <image class="icon" src="../../../imgs/editicon.jpg"></image>
+      
+      <text>管理</text>
+      </view>
 
+      <view class="manage"  bindtap="onFinish" wx:else>
+        <text>完成</text>
+      </view>
+    </view>
+    <checkbox-group bindchange="checkboxChange">  
        <block wx:for="{{collMovie}}">
-        <view class="list-item" data-bid="{{item.id}}" bindtap="toDetailPage">
+
+
+        <view class="list-item"  >
           <view class="index-list-item">
+          <view class="check" >
+             <checkbox value="{{item.id}}" wx:if="{{ismanage}}" checked="{{item.check}}"/>
+            </view>
+          <view data-bid="{{item.id}}" bindtap="toDetailPage" bindlongtap="longTap">
             <view class="cover">
               <image class="cover-img" src="{{item.images.small}}"></image>
             </view>
@@ -12,9 +29,25 @@
               <view class="title">{{item.title}}</view>
              <text class="desc">{{item.src}}</text>
             </view>
+            </view>
           </view>
         </view>
       </block>
+      </checkbox-group>
+      <checkbox-group bindchange="allcheckboxChange">  
+      <view class="buttom" wx:if="{{ismanage}}">
+      <view style="flex:1" class="get_all">
+         <checkbox value="all" class="check_all" />
+        <text>全选</text>
+        </view>
+          <view style="flex:1" class="delete" bindtap="deleteTap">
+         <text>删除</text>
+         </view>
+      </view>
+      </checkbox-group>  
+
+
+     
     </view>  
     <view class="logo" wx:else>
       <view><text>没有评论</text></view>
