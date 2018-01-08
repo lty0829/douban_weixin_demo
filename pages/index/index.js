@@ -98,7 +98,17 @@ Page({
   scrollLowerEvent: function (e) {
     if (this.data.loadingMore)
       return;
-    requestData.call(this);
+    var idx = this.data.currentTab;
+    if (idx == 0) {
+      requestData.call(this);
+    }
+    else if (idx == 1) {
+      requestData1.call(this);
+    }
+    else {
+      requestData2.call(this);
+    }
+   
   },
 
   //跳转到详细页面
@@ -122,7 +132,7 @@ function requestData() {
   var start = this.data.pageIndex;
   this.setData({ loadingMore: true, isInit: false });
   updateRefreshBall.call(this);
-  requests.requestMovieIntheaters({},(data)=>{
+  requests.requestMovieIntheaters({ start: start},(data)=>{
     if (data.total == 0) {
       //没有记录
       _this.setData({ totalRecord: 0 });
@@ -146,7 +156,7 @@ function requestData1() {
   var start = this.data.pageIndex;
   this.setData({ loadingMore: true, isInit: false });
   updateRefreshBall.call(this);
-  requests.requestMovieComing({}, (data) => {
+  requests.requestMovieComing({ start: start}, (data) => {
     if (data.total == 0) {
       //没有记录
       _this.setData({ totalRecord: 0 });
@@ -171,7 +181,7 @@ function requestData2() {
   var start = this.data.pageIndex;
   this.setData({ loadingMore: true, isInit: false });
   updateRefreshBall.call(this);
-  requests.requestMovieRec({}, (data) => {
+  requests.requestMovieRec({ start: start}, (data) => {
     if (data.total == 0) {
       //没有记录
       _this.setData({ totalRecord: 0 });
